@@ -114,6 +114,23 @@ do the following:
 
 You can of course combine SSL and Kerberos.
 
+## Basic authentication
+
+If you want to use Basic Authentication to protect `docker push` and repos/tags management feature in the UI, you can specify `ENV_AUTH_USE_BASIC` and volume flags as follows:
+
+    sudo docker run \
+      -d \
+      -e ENV_DOCKER_REGISTRY_HOST=ENTER-YOUR-REGISTRY-HOST-HERE \
+      -e ENV_DOCKER_REGISTRY_PORT=ENTER-PORT-TO-YOUR-REGISTRY-HERE \
+      -e ENV_AUTH_USE_BASIC=yes \
+      -v $PWD/docker-registry.htpasswd:/etc/apache2/docker-registry.htpasswd:ro \
+      -p 8080:80 \
+      konradkleine/docker-registry-frontend
+
+`GET` methods is not protected by the Basic Authentication, that is `docker pull` also.
+
+You can of course combine SSL and Basic Authentication.
+
 # Browse mode
 
 If you want to start applicaton with browse mode which means no repos/tags management feature in the UI, You can specify `ENV_MODE_BROWSE_ONLY` flag as follows:
